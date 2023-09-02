@@ -1,6 +1,7 @@
 import React from 'react';
 import Player from './player';
 
+
 interface PlayerProps {
     player: Player;
 }
@@ -17,6 +18,7 @@ const PlayerComponent: React.FC<PlayerProps & { index: number }> = ({ player, in
             <td>{player.points.silverModern}</td> 
             <td>{player.points.goldModern}</td> 
             <td>{player.points.diamondModern}</td> 
+            <td>{player.points.total}</td> 
 
         </tr>
     );

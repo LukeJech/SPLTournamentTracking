@@ -17,6 +17,7 @@ interface Player {
         goldWild: number;
         diamondModern: number;
         diamondWild: number;
+        total: number;
         // ... other point properties
     };
     // ... other player properties

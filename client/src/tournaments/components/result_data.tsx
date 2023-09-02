@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import PlayerComponent from './player_results';
 import Player from './player';
+import calculateTotalPoints from './calculatePoints';
 
 
 const GetPLayers: React.FC = () => {
     const [playerData, setPLayerData] = useState<Player[]>([]);
-    const [sortTable, setSortTable] = useState<{column: String; isAscending: boolean}>({
-        column: 'noviceModern',
-        isAscending: false,
-    })
+    const [sortTable, setSortTable] = useState<string>('noviceModern')
 
     useEffect(() => { 
         const fetchPLayerData = async () => { 
@@ -19,9 +17,19 @@ const GetPLayers: React.FC = () => {
                 }
 
                 const data = await response.json();
-                console.log(data);
-                const sortedData = data.sort((playerOne:Player, playerTwo:Player) => playerTwo.points.bronzeModern - playerOne.points.bronzeModern);
+                
+
+                const playersWithTotal = data.map((player: Player) => ({
+                    ...player,
+                    points: {
+                        ...player.points,
+                        total: calculateTotalPoints(player),
+                    }
+                  }));
+
+                const sortedData = playersWithTotal.sort((playerOne:Player, playerTwo:Player) => playerTwo.points.bronzeModern - playerOne.points.bronzeModern);
                 setPLayerData(sortedData);
+                console.log(sortedData)
             } catch (error) {
                 console.error('Error fetching player data:', error);
             }
@@ -31,49 +39,30 @@ const GetPLayers: React.FC = () => {
         
     }, []);
 
-
     const handleSort = (column: string) => {
-        if (sortTable.column === column) {
-            setSortTable({
-                column,
-                isAscending: !sortTable.isAscending,
-            });
-        } else {
-            setSortTable({column, isAscending: true})
-        }
+        setSortTable(column)
     }
 
     useEffect(() => {
-        // Sorting logic based on the current sorting state
-        const sortedData = playerData.sort((playerOne: Player, playerTwo: Player) => {
-        const { column, isAscending } = sortTable;
-        const pointsOne = playerOne.points[column as keyof typeof playerOne.points];
-        const pointsTwo = playerTwo.points[column as keyof typeof playerTwo.points];
-    
-          if (isAscending) {
-            return pointsOne - pointsTwo;
-          } else {
-            return pointsTwo - pointsOne;
-          }
-        });
-    
-        // Update the playerData state with the sorted data
-        setPLayerData([...sortedData]);
-      }, [sortTable]);
+        const sortedData = [...playerData].sort((playerOne:Player, playerTwo:Player) => 
+        playerTwo.points[sortTable as keyof typeof playerTwo.points] - playerOne.points[sortTable as keyof typeof playerOne.points]);
+        setPLayerData(sortedData)
+    }, [sortTable])
 
     return (
         <div className="Results">
-            <p>testing</p>
             <table>
                 <thead>
                     <tr>
                         <th>Rank</th>
                         <th>Player Name</th>
-                        <th onClick={() => handleSort('noviceModern')}>Novice Baybee</th>
+                        <th onClick={() => handleSort('noviceModern')}>Novice</th>
                         <th onClick={() => handleSort('bronzeModern')}>Bronze</th>
                         <th onClick={() => handleSort('silverModern')}>Silver</th>
                         <th onClick={() => handleSort('goldModern')}>Gold</th>
                         <th onClick={() => handleSort('diamondModern')}>Diamond</th>
+                        <th onClick={() => handleSort('total')}>Total</th>
+                  
                     </tr>
                 </thead>
                 <tbody>
@@ -93,3 +82,4 @@ const GetPLayers: React.FC = () => {
 }
 
 export default GetPLayers;
+
