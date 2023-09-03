@@ -18,7 +18,7 @@ const PlayerComponent: React.FC<PlayerProps & { index: number }> = ({ player, in
             <td>{player.points.silverModern}</td> 
             <td>{player.points.goldModern}</td> 
             <td>{player.points.diamondModern}</td> 
-            <td>{player.points.total}</td> 
+            <td>{player.points.modern_total}</td> 
 
         </tr>
     );

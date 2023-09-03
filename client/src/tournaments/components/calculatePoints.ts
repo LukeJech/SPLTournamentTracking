@@ -1,11 +1,21 @@
 import Player from './player';
 
-const calculateTotalPoints = (player:Player): number => {
-    let total = 0
+type PointTotals = {
+    modern_total: number,
+    wild_total: number
+}
+
+const calculateTotalPoints = (player:Player): PointTotals => {
+    let modern_total = 0
+    let wild_total = 0
     for (const key in player.points) {
-        total += player.points[key as keyof typeof player.points]
+        if (key.includes('Modern')) {
+            modern_total += player.points[key as keyof typeof player.points]
+        } else {
+            wild_total += player.points[key as keyof typeof player.points]
+        }
     }
-    return total
+    return {modern_total: modern_total, wild_total: wild_total}
 }
 
 export default calculateTotalPoints;

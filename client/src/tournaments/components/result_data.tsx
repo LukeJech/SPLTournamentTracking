@@ -17,17 +17,23 @@ const GetPLayers: React.FC = () => {
                 }
 
                 const data = await response.json();
+
+                const playersWithTotal = data.map((player: Player) => {
+                    const { modern_total, wild_total } = calculateTotalPoints(player);
+                
+                    return {
+                        ...player,
+                        points: {
+                            ...player.points,
+                            modern_total: modern_total,
+                            wild_total: wild_total,
+                        }
+                    };
+                });
+                
                 
 
-                const playersWithTotal = data.map((player: Player) => ({
-                    ...player,
-                    points: {
-                        ...player.points,
-                        total: calculateTotalPoints(player),
-                    }
-                  }));
-
-                const sortedData = playersWithTotal.sort((playerOne:Player, playerTwo:Player) => playerTwo.points.bronzeModern - playerOne.points.bronzeModern);
+                const sortedData = playersWithTotal.sort((playerOne:Player, playerTwo:Player) => playerTwo.points.modern_total - playerOne.points.modern_total);
                 setPLayerData(sortedData);
                 console.log(sortedData)
             } catch (error) {
@@ -61,7 +67,7 @@ const GetPLayers: React.FC = () => {
                         <th onClick={() => handleSort('silverModern')}>Silver</th>
                         <th onClick={() => handleSort('goldModern')}>Gold</th>
                         <th onClick={() => handleSort('diamondModern')}>Diamond</th>
-                        <th onClick={() => handleSort('total')}>Total</th>
+                        <th onClick={() => handleSort('modern_total')}>Total</th>
                   
                     </tr>
                 </thead>
