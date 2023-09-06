@@ -1,0 +1,10 @@
+.spl_background {
+    background-image: url('./assets/spl_background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+td {
+    text-align: center;
+}

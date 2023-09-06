@@ -12,7 +12,7 @@ const PlayerComponent: React.FC<PlayerProps & { index: number }> = ({ player, ga
     const rank = index + 1;
 
     return (
-        <tr className="Player">
+        <tr className="Player text-white ">
             <td>{rank}</td> 
             <td>{player.name}</td> 
             {gameFormat === 'Modern' && (

@@ -1,14 +1,19 @@
 
 import GetTournaments from './tournaments/components/result_data'
-
+import './App.css'
 function App() {
 
 
   return (
     <>
-      <h1 className='text-md font-bold text-blue-500'>Splinterlands Tournament Leaderboard</h1>
-      <h2>Season 1</h2>
-      <GetTournaments />
+    <div className='spl_background pt-8'>
+        <div className='w-3/5 mx-auto'>
+          <h1 className='text-6xl font-bold  text-rose-400 text-center'>TOURNAMENT LEADERBOARD</h1>
+          
+          <GetTournaments />
+
+        </div>
+    </div>
     </>
   )
 }

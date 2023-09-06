@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import PlayerComponent from './player_results';
 import Player from './player';
 import calculateTotalPoints from './calculatePoints';
+import FormatButtons from './modern_wild_buttons';
 
 
 const GetPLayers: React.FC = () => {
@@ -70,11 +71,10 @@ const GetPLayers: React.FC = () => {
 
     return (
         <div className="Results">
-            <button onClick={() => handleFormatChange('Modern')}>Modern</button>
-            <button onClick={() => handleFormatChange('Wild')}>Wild</button>
-            <table>
+             <FormatButtons handleFormatChange={handleFormatChange}/>
+            <table className='w-full text-xl'>
                 <thead>
-                    <tr>
+                    <tr className='text-white'>
                         <th>Rank</th>
                         <th>Player Name</th>
                         {gameFormat === 'Modern' && (
