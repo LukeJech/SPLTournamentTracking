@@ -5,8 +5,11 @@ import calculateTotalPoints from './calculatePoints';
 
 
 const GetPLayers: React.FC = () => {
+
+      
     const [playerData, setPLayerData] = useState<Player[]>([]);
     const [sortTable, setSortTable] = useState<string>('noviceModern')
+    const [gameFormat, setGameFormat] = useState<string>('Modern')
 
     useEffect(() => { 
         const fetchPLayerData = async () => { 
@@ -49,7 +52,17 @@ const GetPLayers: React.FC = () => {
         setSortTable(column)
     }
 
+    const handleFormatChange = (format: string) => {
+        setGameFormat(format)
+    }
+
     useEffect(() => {
+        console.log(gameFormat)
+    }, [gameFormat])
+
+    // sorting table effect
+    useEffect(() => {
+        console.log(sortTable)
         const sortedData = [...playerData].sort((playerOne:Player, playerTwo:Player) => 
         playerTwo.points[sortTable as keyof typeof playerTwo.points] - playerOne.points[sortTable as keyof typeof playerOne.points]);
         setPLayerData(sortedData)
@@ -57,16 +70,18 @@ const GetPLayers: React.FC = () => {
 
     return (
         <div className="Results">
+            <button onClick={() => handleFormatChange('Modern')}>Modern</button>
+            <button onClick={() => handleFormatChange('Wild')}>Wild</button>
             <table>
                 <thead>
                     <tr>
                         <th>Rank</th>
                         <th>Player Name</th>
-                        <th onClick={() => handleSort('noviceModern')}>Novice</th>
-                        <th onClick={() => handleSort('bronzeModern')}>Bronze</th>
-                        <th onClick={() => handleSort('silverModern')}>Silver</th>
-                        <th onClick={() => handleSort('goldModern')}>Gold</th>
-                        <th onClick={() => handleSort('diamondModern')}>Diamond</th>
+                        <th onClick={() => handleSort(`noviceModern`)}>Novice</th>
+                        <th onClick={() => handleSort(`bronze${gameFormat}`)}>Bronze</th>
+                        <th onClick={() => handleSort(`silver${gameFormat}`)}>Silver</th>
+                        <th onClick={() => handleSort(`gold${gameFormat}`)}>Gold</th>
+                        <th onClick={() => handleSort(`diamond${gameFormat}`)}>Diamond</th>
                         <th onClick={() => handleSort('modern_total')}>Total</th>
                   
                     </tr>
@@ -74,7 +89,7 @@ const GetPLayers: React.FC = () => {
                 <tbody>
                     {playerData.length > 0 ? (
                         playerData.map((player, index) => (
-                        <PlayerComponent key={player._id} player={player} index={index} />
+                        <PlayerComponent key={player._id} player={player} gameFormat={gameFormat} index={index} />
                         ))
                     ) : (
                         <tr>
