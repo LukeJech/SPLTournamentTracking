@@ -22,21 +22,21 @@ const GetPLayers: React.FC = () => {
                 const data = await response.json();
 
                 const playersWithTotal = data.map((player: Player) => {
-                    const { modern_total, wild_total } = calculateTotalPoints(player);
+                    const { Modern_total, Wild_total } = calculateTotalPoints(player);
                 
                     return {
                         ...player,
                         points: {
                             ...player.points,
-                            modern_total: modern_total,
-                            wild_total: wild_total,
+                            Modern_total: Modern_total,
+                            Wild_total: Wild_total,
                         }
                     };
                 });
                 
                 
 
-                const sortedData = playersWithTotal.sort((playerOne:Player, playerTwo:Player) => playerTwo.points.modern_total - playerOne.points.modern_total);
+                const sortedData = playersWithTotal.sort((playerOne:Player, playerTwo:Player) => playerTwo.points.Modern_total - playerOne.points.Modern_total);
                 setPLayerData(sortedData);
                 console.log(sortedData)
             } catch (error) {
@@ -77,12 +77,16 @@ const GetPLayers: React.FC = () => {
                     <tr>
                         <th>Rank</th>
                         <th>Player Name</th>
+                        {gameFormat === 'Modern' && (
+                            <>
                         <th onClick={() => handleSort(`noviceModern`)}>Novice</th>
+                            </>
+                            )}
                         <th onClick={() => handleSort(`bronze${gameFormat}`)}>Bronze</th>
                         <th onClick={() => handleSort(`silver${gameFormat}`)}>Silver</th>
                         <th onClick={() => handleSort(`gold${gameFormat}`)}>Gold</th>
                         <th onClick={() => handleSort(`diamond${gameFormat}`)}>Diamond</th>
-                        <th onClick={() => handleSort('modern_total')}>Total</th>
+                        <th onClick={() => handleSort(`${gameFormat}_total`)}>Total</th>
                   
                     </tr>
                 </thead>

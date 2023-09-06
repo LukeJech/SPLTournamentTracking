@@ -15,7 +15,6 @@ const PlayerComponent: React.FC<PlayerProps & { index: number }> = ({ player, ga
         <tr className="Player">
             <td>{rank}</td> 
             <td>{player.name}</td> 
-            <td>{player.points.noviceModern}</td> 
             {gameFormat === 'Modern' && (
                 <>
                 <td>{player.points.noviceModern}</td> 
@@ -23,7 +22,7 @@ const PlayerComponent: React.FC<PlayerProps & { index: number }> = ({ player, ga
                 <td>{player.points.silverModern}</td> 
                 <td>{player.points.goldModern}</td> 
                 <td>{player.points.diamondModern}</td> 
-                <td>{player.points.modern_total}</td> 
+                <td>{player.points.Modern_total}</td> 
                 </>
             )}
             {gameFormat === 'Wild' && (
@@ -32,7 +31,7 @@ const PlayerComponent: React.FC<PlayerProps & { index: number }> = ({ player, ga
                 <td>{player.points.silverWild}</td> 
                 <td>{player.points.goldWild}</td> 
                 <td>{player.points.diamondWild}</td> 
-                <td>{player.points.modern_total}</td> 
+                <td>{player.points.Wild_total}</td> 
                 </>
             )}
 
