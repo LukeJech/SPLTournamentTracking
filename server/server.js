@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const playerRoutes =  require('./routes/players')
 const tournamentRoutes = require('./routes/tournaments')
+const updateTournamentDataDaily = require('./controllers/autoUpdateTournamentData');
+
 
 const app = express();
 
@@ -26,6 +28,7 @@ mongoose.connect(process.env.MONGO_URI)
         // listen for requests
     app.listen(process.env.PORT, () => {
     console.log("Connected to db & listening on port", process.env.PORT);
+    updateTournamentDataDaily()
 });
     })
     .catch(err => console.error('Could not connect to MongoDB...', err));

@@ -15,12 +15,12 @@ router.get('/all', getAllTournamentEntries);
 
 
 // reset tournament data
-router.delete('/all/delete', deleteAllTournaments);
+// router.delete('/all/delete', deleteAllTournaments);
 
 // Get 1 tournament data
 router.get('/:id', getTournament);
 
-// GET all tournaments
+// GET all tournaments from Splinterlands API
 router.get('/', getAllTournaments);
 
 // Delete a tournament
