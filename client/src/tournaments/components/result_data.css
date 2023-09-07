@@ -1,0 +1,21 @@
+.table_container {
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+
+/* Hide scrollbar for Firefox */
+.table_container::-webkit-scrollbar {
+    width: 0.4em;
+  }
+  
+  /* Hide scrollbar for IE and Edge */
+  .table_container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .table_container::-webkit-scrollbar,
+  .table_container::-webkit-scrollbar-thumb {
+    display: none; /* Safari and Chrome */
+  }
+

@@ -3,7 +3,7 @@ import PlayerComponent from './player_results';
 import Player from './player';
 import calculateTotalPoints from './calculatePoints';
 import FormatButtons from './modern_wild_buttons';
-
+import './result_data.css';
 
 const GetPLayers: React.FC = () => {
 
@@ -72,36 +72,39 @@ const GetPLayers: React.FC = () => {
     return (
         <div className="Results">
              <FormatButtons handleFormatChange={handleFormatChange}/>
-            <table className='w-full text-xl'>
-                <thead>
-                    <tr className='text-white'>
-                        <th>Rank</th>
-                        <th>Player Name</th>
-                        {gameFormat === 'Modern' && (
-                            <>
-                        <th onClick={() => handleSort(`noviceModern`)}>Novice</th>
-                            </>
-                            )}
-                        <th onClick={() => handleSort(`bronze${gameFormat}`)}>Bronze</th>
-                        <th onClick={() => handleSort(`silver${gameFormat}`)}>Silver</th>
-                        <th onClick={() => handleSort(`gold${gameFormat}`)}>Gold</th>
-                        <th onClick={() => handleSort(`diamond${gameFormat}`)}>Diamond</th>
-                        <th onClick={() => handleSort(`${gameFormat}_total`)}>Total</th>
-                  
-                    </tr>
-                </thead>
-                <tbody>
-                    {playerData.length > 0 ? (
-                        playerData.map((player, index) => (
-                        <PlayerComponent key={player._id} player={player} gameFormat={gameFormat} index={index} />
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan={1}>Loading player data...</td>
+             <div className='table_container'>
+                
+                <table className='w-full text-xs sm:text-sm md:text-base lg:text-lg xl:text-2xl font-semibold'>
+                    <thead>
+                        <tr className='text-white'>
+                            <th>Rank</th>
+                            <th>Player Name</th>
+                            {gameFormat === 'Modern' && (
+                                <>
+                            <th onClick={() => handleSort(`noviceModern`)}>Novice</th>
+                                </>
+                                )}
+                            <th onClick={() => handleSort(`bronze${gameFormat}`)}>Bronze</th>
+                            <th onClick={() => handleSort(`silver${gameFormat}`)}>Silver</th>
+                            <th onClick={() => handleSort(`gold${gameFormat}`)}>Gold</th>
+                            <th onClick={() => handleSort(`diamond${gameFormat}`)}>Diamond</th>
+                            <th onClick={() => handleSort(`${gameFormat}_total`)}>Total</th>
+                    
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {playerData.length > 0 ? (
+                            playerData.map((player, index) => (
+                            <PlayerComponent key={player._id} player={player} gameFormat={gameFormat} index={index} />
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={1}>Loading player data...</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+             </div>
     </div>
     )
 }
