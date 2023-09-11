@@ -7,6 +7,10 @@ const TournamentSchema = new Schema({
         type: String,
         required: true,
     },
+    spl_id: {
+        type: String,
+        required: true,
+    },
     start_date: {
         type: Date,
         required: true,

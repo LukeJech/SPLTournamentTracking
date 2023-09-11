@@ -5,9 +5,9 @@ const { calculate_points } = require('../calculations/score_calculations');
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const createTournamentEntry = async (name, start_date) => {
+const createTournamentEntry = async (name, start_date, spl_id) => {
   try {
-    const tournament = await Tournament.create({name, start_date});
+    const tournament = await Tournament.create({name, start_date, spl_id});
     return tournament
   } catch (error) {
     throw new Error(error.message)
@@ -21,9 +21,9 @@ const getAllTournamentEntries = async (req, res) => {
 }
 
 
-const getTournamentByStartDate = async (start_date) => {
+const getTournamentBySpl_id = async (spl_id) => {
   try {
-    const tournament = await Tournament.findOne({ start_date })
+    const tournament = await Tournament.findOne({ spl_id })
     return tournament
   } catch{
     throw new Error(error.message)
@@ -106,14 +106,14 @@ const getAllTournaments = async () => {
 
     for (const element of data) {
       if (element.created_by === 'sps.tournaments') {
-        const tournamentEntry = await getTournamentByStartDate(element.start_date);
+        const tournamentEntry = await getTournamentBySpl_id(element.id);
         if (tournamentEntry) {
-          console.log('Tournament already exists', element.name, element.start_date);
+          console.log('Tournament already exists', element.name, element.id);
         } else {
           console.log('Creating tournament', element.name);
           await delay(10000); // Adjust the delay time as needed
           const tournament = await getTournament(element.id);
-          createTournamentEntry(element.name, element.start_date);
+          createTournamentEntry(element.name, element.start_date, element.id);
         }
       }
     }

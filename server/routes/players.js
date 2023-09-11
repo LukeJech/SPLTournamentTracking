@@ -22,10 +22,10 @@ router.get('/:id', getPlayer);
 router.post('/', createPlayer);
 
 // Delete a player
-router.delete('/:id', deletePlayer);
+// router.delete('/:id', deletePlayer);
 
 // Delete all players
-router.delete('/all/delete', deleteAllPlayers)
+// router.delete('/all/delete', deleteAllPlayers)
 
 // UPDATE a player
 router.patch('/:id', updatePlayer);
